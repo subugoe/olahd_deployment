@@ -1,0 +1,48 @@
+version: "3.7"
+services:
+  mongo:
+    container_name: "mongo"
+    image: mongo:4.0.10
+    restart: on-failure
+    volumes:
+      - ~/ola-hd-data/mongodb:/data/db
+    networks:
+      - ola-hd
+    env_file:
+      - .env
+
+  ola-hd:
+    container_name: "ola-hd"
+    build:
+      context: back-end/
+    deploy:
+      resources:
+        limits:
+          memory: 8GB
+    ports:
+      - "${OLA_HD_EXTERNAL_PORT}:${OLA_HD_PORT}"
+    depends_on:
+      - mongo
+    networks:
+      - ola-hd
+    env_file:
+      - .env
+
+  proxy:
+    container_name: "nginx"
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - ola-hd
+    networks:
+      - ola-hd
+
+networks:
+  ola-hd:
+    name: ola-hd
+    driver: bridge
+    driver_opts:
+      com.docker.network.driver.mtu: 1450
