@@ -7,25 +7,28 @@ The separation rules are defined in the configuration file.
 In addition, each uploaded zip gets a persistent identifier (PID).
 This PID can be used for sharing, citing, and versioning purposes.
 
-More documentation are available in respective folders (`back-end`, `admin-gui`, and `user-gui`).
-
 If you deploy your own instance, a [Swagger](https://swagger.io/ "Swagger homepage") documentation is
 available at `/swagger-ui.html`.
 
 For the prototype:
-* Please click [here](http://141.5.98.232/ "OLA-HD Prototype") to experience it.
-* Please click [here](http://141.5.98.232/api/swagger-ui.html "OLA-HD API Documentation") for the current Swagger documentation.
+* Please click [here](http://ola-hd.gwdg.de/ "OLA-HD Prototype") to experience it.
+* Please click [here](http://ola-hd.gwdg.de/api/swagger-ui.html "OLA-HD API Documentation") for the current Swagger documentation.
+
+## Repositories
+Besides this repository, OLA-HD consists of 3 repositiories:
+
+[Backend](https://github.com/subugoe/olahd_backend): RESTful Service  
+[User-GUI](https://github.com/subugoe/olahd_user_frontend): web UI for public usage  
+[Admin-GUI](https://github.com/subugoe/olahd_admin_frontend): web UI for logged in users  
+
 
 ## Project structure
 ```
 .
 ├── .gitlab
 │   └── issue_templates  -> templates used by Gitlab when users want to create issues
-├── admin-gui            -> the web UI for logged in users
-├── back-end             -> contains source code for OLA-HD service
 ├── images               -> images used in README files
 ├── nginx                -> the Nginx proxy for the whole system
-├── user-gui             -> web UI for public usage
 ├── .env                 -> environment variables for all Docker images
 ├── .gitignore
 ├── LICENSE
@@ -40,8 +43,11 @@ For the prototype:
 
 ## Install and run
 ```
-git clone https://gitlab.gwdg.de/pwieder/ola-hd.git
-cd ola-hd
+git clone https://github.com/subugoe/olahd_deployment
+cd olahd_deployment
+git clone https://github.com/subugoe/olahd_backend
+git clone https://github.com/subugoe/olahd_user_frontend
+git clone https://github.com/subugoe/olahd_admin_frontend
 ./build.sh
 ```
 
@@ -51,4 +57,3 @@ cd ola-hd
 All requests go first to the Nginx proxy.
 Depending on the URL path, it will either forward the request to the back-end service, or serves static HTML files.
 As depicted in the image, there are four components: Nginx, back-end, front-end for normal user, and front-end for admin.
-The source code and documentation of these components locate in folder `nginx`, `back-end`, `user-gui`, and `admin-gui` respectively.

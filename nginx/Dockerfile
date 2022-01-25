@@ -1,19 +1,19 @@
 # Build the user-gui module
 FROM node:lts-alpine as user-gui
 WORKDIR /app
-COPY ./user-gui/package*.json ./
-COPY ./user-gui/yarn.lock ./
+COPY ./olahd_user_frontend/package*.json ./
+COPY ./olahd_user_frontend/yarn.lock ./
 RUN yarn install
-COPY ./user-gui/. .
+COPY ./olahd_user_frontend/. .
 RUN yarn build
 
 # Build the admin-gui module
 FROM node:lts-alpine as admin-gui
 WORKDIR /app
-COPY ./admin-gui/package*.json ./
-COPY ./admin-gui/yarn.lock ./
+COPY ./olahd_admin_frontend/package*.json ./
+COPY ./olahd_admin_frontend/yarn.lock ./
 RUN yarn install
-COPY ./admin-gui/. .
+COPY ./olahd_admin_frontend/. .
 RUN yarn build
 
 # Production stage

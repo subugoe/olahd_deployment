@@ -14,7 +14,7 @@ services:
   ola-hd:
     container_name: "ola-hd"
     build:
-      context: back-end/
+      context: olahd_backend/
     deploy:
       resources:
         limits:
